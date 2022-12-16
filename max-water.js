@@ -37,4 +37,33 @@ const getMaxWaterContainer = function (heights) {
   return maxArea;
 };
 
-console.log(getMaxWaterContainer(heightsArray));
+//console.log(getMaxWaterContainer(heightsArray));
+const elevationArray = [0, 1, 0, 2, 1, 0, 3, 1, 0, 1, 2];
+const getTrappedRainwater = (heights) => {
+  let totalWater = 0;
+
+  for (let p = 0; p < heights.length; p++) {
+    let maxLeft = 0;
+    let maxRight = 0;
+    let leftP = p;
+    let rightP = p;
+
+    while (leftP >= 0) {
+      maxLeft = Math.max(maxLeft, heights[leftP]);
+      leftP--;
+    }
+    while (rightP < heights.length) {
+      maxRight = Math.max(maxRight, heights[rightP]);
+      rightP++;
+    }
+    let currentWater = Math.min(maxLeft, maxRight) - heights[p];
+
+    if (currentWater >= 0) {
+      totalWater += currentWater;
+    }
+  }
+  console.log(totalWater);
+  return totalWater;
+};
+
+console.log(getTrappedRainwater(elevationArray));
